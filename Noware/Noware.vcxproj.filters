@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files\noware">
+      <UniqueIdentifier>{807a808a-7f0b-4385-b382-71b3b74c0911}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\engine">
+      <UniqueIdentifier>{b1bd339c-eaaf-445e-a117-b82e97d89d37}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\game">
+      <UniqueIdentifier>{f8215ff3-a180-47fa-b005-05064964d7d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\util">
+      <UniqueIdentifier>{da491358-e5af-447e-827a-1bc589dbf212}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\graphics">
+      <UniqueIdentifier>{524cdd5e-b086-483e-b18a-441187487448}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\creator.cpp">
+      <Filter>Source Files\noware</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
