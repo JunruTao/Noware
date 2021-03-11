@@ -8,7 +8,6 @@
 
 # cache folders
 /build/**
-/release/**
 
 ### C++ ###
 # Prerequisites
