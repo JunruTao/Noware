@@ -6,6 +6,9 @@
 # excluded extern(sfml) find the instructions inside
 /extern/SFML/**
 
+# cache folders
+/build/*
+/release/*
 
 ### C++ ###
 # Prerequisites
