@@ -6,8 +6,8 @@ A small C++ game/engine "Noware" development, using SFML as foundation graphics 
 [comment]: <> (Format: Markdown format for better preview on GitHub.com)
 [comment]: <> (----------------------COMMENT END-----------------------)
 
-[Build Environment](#1.-build-environment)
-[Package](#1.1-package)
+[Build Environment](##1.-build-environment)
+[Package](#####1.1-package)
 
 ----------------------------------------------------------------------
 ## 1. Build Environment
