@@ -24,6 +24,6 @@ A small C++ game/engine "Noware" development, using SFML as foundation graphics 
         * N/A (not avaliable at the moment)
 
 ### 2. Program Structure
-* Diagram: <div style="text-align: right"> - `Timestamp March 10th, 2020`</div>
+* Diagram: <p align="right"> :green_heart:`Timestamp March 10th, 2020`</p>
 
-<img src=".factory/diagrams/20200310_dgrm_architecture_v0001.png">
+<img align="center" src=".factory/diagrams/20200310_dgrm_architecture_v0001.png">
