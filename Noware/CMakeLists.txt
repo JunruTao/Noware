@@ -19,14 +19,14 @@ add_subdirectory(src/Noware_Game)
 
 # Set installation path :def[ ${NOWARE_INSTALL_DIR} ]
 if (CMAKE_BUILD_TYPE MATCHES Release)
-    set(NOWARE_INSTALL_DIR ${Noware_SOURCE_DIR}/Noware${NOWARE_VERSION})
+    set(NOWARE_INSTALL_DIR ${Noware_SOURCE_DIR}/Noware-${NOWARE_VERSION})
 else()
     set(NOWARE_INSTALL_DIR ${Noware_SOURCE_DIR}/Noware-d-${NOWARE_VERSION})
 endif()
 
 
 # Install the main dependency
-install(TARGETS noware DESTINATION ${NOWARE_INSTALL_DIR}/bin)
+install(TARGETS noware DESTINATION ${NOWARE_INSTALL_DIR})
 
 if(WIN32)
     if(EXPORT_RUNTIME)
@@ -41,7 +41,7 @@ if(WIN32)
         ${Noware_SOURCE_DIR}/extern/SFML/bin/sfml-system-d-2.dll
         ${Noware_SOURCE_DIR}/extern/SFML/bin/sfml-window-d-2.dll
         CONFIGURATIONS DEBUG
-        DESTINATION ${NOWARE_INSTALL_DIR}/bin)
+        DESTINATION ${NOWARE_INSTALL_DIR})
         #RELEASE MODE
         install(FILES
         ${Noware_SOURCE_DIR}/extern/SFML/bin/openal32.dll
@@ -51,6 +51,16 @@ if(WIN32)
         ${Noware_SOURCE_DIR}/extern/SFML/bin/sfml-system-2.dll
         ${Noware_SOURCE_DIR}/extern/SFML/bin/sfml-window-2.dll
         CONFIGURATIONS RELEASE
-        DESTINATION ${NOWARE_INSTALL_DIR}/bin)
+        DESTINATION ${NOWARE_INSTALL_DIR})
     endif(EXPORT_RUNTIME)
 endif(WIN32)
+
+install(DIRECTORY 
+        ${Noware_SOURCE_DIR}/Noware/config
+        DESTINATION ${NOWARE_INSTALL_DIR})
+install(DIRECTORY 
+        ${Noware_SOURCE_DIR}/Noware/fonts
+        DESTINATION ${NOWARE_INSTALL_DIR})
+install(DIRECTORY 
+        ${Noware_SOURCE_DIR}/Noware/images
+        DESTINATION ${NOWARE_INSTALL_DIR})

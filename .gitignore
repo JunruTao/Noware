@@ -9,6 +9,8 @@
 # cache folders
 /build/**
 
+# installation tests
+/Noware-*/**
 ### C++ ###
 # Prerequisites
 *.d

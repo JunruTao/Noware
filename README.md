@@ -7,23 +7,68 @@ A small C++ game/engine "Noware" development, using SFML as foundation graphics 
 [comment]: <> (----------------------COMMENT END-----------------------)
 
 ### 1. Build Environment
+##### 1.1 Package
 1. CMake, MinGW Makefiles(Windows), Makefiles(Linux)
 2. SFML package (see `extern/instructions.txt`)
 
-    #### 1.2 build instruction
-    * windows:
-        > `mkdir build` <br>
-        > `cd build`
-        * debug install
-        > `cmake.exe -G "MinGW Makefiles" -DCMAKE_BUILD_TYPE=Debug ..`<br>
-        > `mingw32-make install`
-        * release install  
-        > `cmake.exe -G "MinGW Makefiles" -DCMAKE_BUILD_TYPE=Release ..`<br>
-        > `mingw32-make install`
-    * Linux:
-        * N/A (not avaliable at the moment)
+##### 1.2 build instruction
+* windows:
+    > `mkdir build` <br>
+    > `cd build`
+    * debug install
+    > `cmake.exe -G "MinGW Makefiles" -DCMAKE_BUILD_TYPE=Debug ..`<br>
+    > `mingw32-make install`
+    * release install  
+    > `cmake.exe -G "MinGW Makefiles" -DCMAKE_BUILD_TYPE=Release ..`<br>
+    > `mingw32-make install`
+* Linux:
+    * N/A (not avaliable at the moment)
 
-### 2. Program Structure
+
+### 2. File Structure
+
+##### 2.1 Master folder structure:
+- <img src=".factory/icons/folder_12x12.png"> - Noware
+  - <img src=".factory/icons/folder_12x12.png"> - .factory
+    - <img src=".factory/icons/folder_12x12.png"> - diagrams
+    - <img src=".factory/icons/folder_12x12.png"> - icons
+  - <img src=".factory/icons/folder_12x12.png"> - extern
+    - <img src=".factory/icons/folderE_12x12.png"> - SFML
+    - <img src=".factory/icons/file_12x12.png"> - `instructions.txt`
+  - <img src=".factory/icons/folder_12x12.png"> - Noware <sup>(source files)</sup>
+    - <img src=".factory/icons/folder_n_files_12x12.png"> ...<sup>&darr;(see Source files structure)</sup>
+  - <img src=".factory/icons/cmfile_12x12.png"> - `CMakeLists.txt`
+  - <img src=".factory/icons/file_12x12.png"> - `.gitignore`
+  - <img src=".factory/icons/file_12x12.png"> - `LICENSE`
+  - <img src=".factory/icons/file_12x12.png"> - `README.md`
+
+##### 2.2 Source files structure:
+- <img src=".factory/icons/folderG_12x12.png"> - Noware <sup>(source files)</sup>
+  - <img src=".factory/icons/folderG_12x12.png"> - config
+    - <img src=".factory/icons/file_12x12.png"> - `config.env`
+  - <img src=".factory/icons/folderG_12x12.png"> - fonts
+    - <img src=".factory/icons/file_m_12x12.png"> ...
+  - <img src=".factory/icons/folderG_12x12.png"> - images
+    - <img src=".factory/icons/file_m_12x12.png"> ...
+  - <img src=".factory/icons/folder_12x12.png"> - include
+    - <img src=".factory/icons/folder_12x12.png"> - Noware
+      - <img src=".factory/icons/folder_12x12.png"> - engine
+      - <img src=".factory/icons/folder_12x12.png"> - graphics
+      - <img src=".factory/icons/folder_12x12.png"> - util
+    - <img src=".factory/icons/folder_12x12.png"> - Noware_Game
+      - <img src=".factory/icons/folder_12x12.png"> - game
+  - <img src=".factory/icons/folder_12x12.png"> - src
+    - <img src=".factory/icons/folder_12x12.png"> - Noware
+      - <img src=".factory/icons/folder_12x12.png"> - engine
+      - <img src=".factory/icons/folder_12x12.png"> - graphics
+      - <img src=".factory/icons/folder_12x12.png"> - util
+      - <img src=".factory/icons/cmfile_12x12.png"> - `CMakeLists.txt`
+    - <img src=".factory/icons/folder_12x12.png"> - Noware_Game
+      - <img src=".factory/icons/folder_12x12.png"> - game
+      - <img src=".factory/icons/cmfile_12x12.png"> - `CMakeLists.txt`
+  - <img src=".factory/icons/cmfile_12x12.png"> - `CMakeLists.txt`
+
+### 3. Program Structure
 * Diagram: <p align="right"> :green_heart:`Timestamp March 10th, 2020`</p>
 
-<img align="center" src=".factory/diagrams/20200310_dgrm_architecture_v0001.png">
+<img align="center" width=500 src=".factory/diagrams/20200310_dgrm_architecture_v0001.png">
