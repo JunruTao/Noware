@@ -1,6 +1,10 @@
 # Noware
 A small C++ game/engine "Noware" development, using SFML as foundation graphics library.
 
+----------------------------------------------------------------------
+[comment]: <> (---------------------COMMENT START----------------------)
+[comment]: <> (Format: Markdown format for better preview on GitHub.com)
+[comment]: <> (----------------------COMMENT END-----------------------)
 
 ### 1. Build Environment
 1. CMake, MinGW Makefiles(Windows), Makefiles(Linux)
@@ -20,5 +24,6 @@ A small C++ game/engine "Noware" development, using SFML as foundation graphics 
         * N/A (not avaliable at the moment)
 
 ### 2. Program Structure
-March 10th, 2020
+* Diagram: <div style="text-align: right"> - `Timestamp March 10th, 2020`</div>
+
 <img src=".factory/diagrams/20200310_dgrm_architecture_v0001.png">
