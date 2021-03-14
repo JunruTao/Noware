@@ -6,26 +6,48 @@ A small C++ game/engine "Noware" development, using SFML as foundation graphics 
 [comment]: <> (Format: Markdown format for better preview on GitHub.com)
 [comment]: <> (----------------------COMMENT END-----------------------)
 
-### 1. Build Environment
+[Build Environment](#1.-build-environment)
+[Package](#1.1-package)
+
+----------------------------------------------------------------------
+## 1. Build Environment
 ##### 1.1 Package
 1. CMake, MinGW Makefiles(Windows), Makefiles(Linux)
 2. SFML package (see `extern/instructions.txt`)
 
 ##### 1.2 build instruction
 * windows:
-    > `mkdir build` <br>
+    > `mkdir build`
+    
     > `cd build`
     * debug install
-    > `cmake.exe -G "MinGW Makefiles" -DCMAKE_BUILD_TYPE=Debug ..`<br>
+    > `cmake.exe -G "MinGW Makefiles" -DCMAKE_BUILD_TYPE=Debug ..`
+    
     > `mingw32-make install`
     * release install  
-    > `cmake.exe -G "MinGW Makefiles" -DCMAKE_BUILD_TYPE=Release ..`<br>
+    > `cmake.exe -G "MinGW Makefiles" -DCMAKE_BUILD_TYPE=Release ..`
+    
     > `mingw32-make install`
 * Linux:
     * N/A (not avaliable at the moment)
 
+##### 1.3* Handy Windows custom `doskey` for build shortcuts
+Content of `cmds.bat`
+```
+@echo off
+:: MinGW and CMake Makefile shortcuts
+doskey cmaked=cmake.exe -G "MinGW Makefiles" -DCMAKE_BUILD_TYPE=Debug ..
+doskey cmaked=cmake.exe -G "MinGW Makefiles" -DCMAKE_BUILD_TYPE=Release ..
+doskey cmaker=mingw32-make
+doskey mmi=mingw32-make install
+```
+|cmake debug  | cmake release | make| make install|
+|:-----------:|:------------: |:---:| :---------: |
+|    `cmaked` |  `cmaker`     | `mm`|    `mmi`    |
 
-### 2. File Structure
+----------------------------------------------------------------------
+
+## 2. File Structure
 
 ##### 2.1 Master folder structure:
 - <img src=".factory/icons/folder_12x12.png"> - Noware
@@ -58,6 +80,7 @@ A small C++ game/engine "Noware" development, using SFML as foundation graphics 
     - <img src=".factory/icons/folder_12x12.png"> - Noware_Game
       - <img src=".factory/icons/folder_12x12.png"> - game
   - <img src=".factory/icons/folder_12x12.png"> - src
+    - <img src=".factory/icons/file_12x12.png"> - `creator.cpp` &larr; (Entry Point)
     - <img src=".factory/icons/folder_12x12.png"> - Noware
       - <img src=".factory/icons/folder_12x12.png"> - engine
       - <img src=".factory/icons/folder_12x12.png"> - graphics
@@ -68,7 +91,9 @@ A small C++ game/engine "Noware" development, using SFML as foundation graphics 
       - <img src=".factory/icons/cmfile_12x12.png"> - `CMakeLists.txt`
   - <img src=".factory/icons/cmfile_12x12.png"> - `CMakeLists.txt`
 
-### 3. Program Structure
-* Diagram: <p align="right"> :green_heart:`Timestamp March 10th, 2020`</p>
+----------------------------------------------------------------------
+
+## 3. Program Structure
+##### Diagram <sup>#</sup>01:
 
 <img align="center" width=500 src=".factory/diagrams/20200310_dgrm_architecture_v0001.png">
