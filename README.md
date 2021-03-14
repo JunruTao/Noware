@@ -8,4 +8,4 @@ A small C++ game/engine "Noware" development, using SFML as foundation graphics 
 
 ### 2. Program Structure
 March 10th, 2020
-<img src="/diagrams/20200310_dgrm_architecture_v0001.png">
+<img src=".factory/diagrams/20200310_dgrm_architecture_v0001.png">

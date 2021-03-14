@@ -1,7 +1,7 @@
 # Git ignore < Noware > Junru Tao 2021
 
 # User documents
-/.factory/**
+/.factory/__*/**
 
 # excluded extern(sfml) find the instructions inside
 /extern/SFML/**
