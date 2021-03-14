@@ -8,13 +8,13 @@ A small C++ game/engine "Noware" development, using SFML as foundation graphics 
 
     #### 1.2 build instruction
     * windows:
-        > `mkdir build`
+        > `mkdir build` <br>
         > `cd build`
         * debug install
-        > `cmake.exe -G "MinGW Makefiles" -DCMAKE_BUILD_TYPE=Debug ..`
+        > `cmake.exe -G "MinGW Makefiles" -DCMAKE_BUILD_TYPE=Debug ..`<br>
         > `mingw32-make install`
         * release install  
-        > `cmake.exe -G "MinGW Makefiles" -DCMAKE_BUILD_TYPE=Release ..`
+        > `cmake.exe -G "MinGW Makefiles" -DCMAKE_BUILD_TYPE=Release ..`<br>
         > `mingw32-make install`
     * Linux:
         * N/A (not avaliable at the moment)
