@@ -14,23 +14,30 @@ nw::Window::Renderer::Renderer(std::string window_name)
         sf::String(window_name),
         sf::Style::Default,
         sf_setting);
+
+    
     //Test on window Creation
     if(!_hrenderer)
     {
-        nw::Util::RuntimeError("[nw::Window::Renderer - Constructor] Failed to create window.");
+        // Window is not created:
+        nw::Util::RuntimeError(
+            "[nw::Window::Renderer - Constructor] Failed to create window."
+            );
     }
     else
     {
+        // Window handle is successfully registed
+        ____HERE_HAS_DEBUG_FUNCTION____
         nw::Util::DebugMessage("[nw::Window::Renderer] - Register status: [ SUCCESS ]");
         nw::Util::DebugMessageP("- Window Renderer Registry",static_cast<void*>(_hrenderer));
     }
 
-    // Create
+    // Create viewport set into window
     sf::View view(sf::FloatRect(0, 0,
                                 (float)nw::Config::WINDOW_SIZE_INIT_X,
                                 (float)nw::Config::WINDOW_SIZE_INIT_Y));
     _hrenderer->setView(view);
-    _hrenderer->setFramerateLimit(30); //TODO: Set Frame limit from configuration
+    _hrenderer->setFramerateLimit(nw::Config::WINDOW_VAR_FRAMELIMIT); //TODO: Set Frame limit from configuration
     _hrenderer->setVerticalSyncEnabled(true);
 }
 

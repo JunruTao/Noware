@@ -2,6 +2,10 @@
 #define _SYSTEM_HELPER_H_
 #include <string>
 
+// [Code Helper] Notation macros, has no specific meaning
+#define ____HERE_HAS_DEBUG_FUNCTION____
+#define ____INPUT____
+
 namespace nw
 {
     namespace Util
