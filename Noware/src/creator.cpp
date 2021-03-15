@@ -1,24 +1,25 @@
-#include "Noware_Game/game/game.h"
+#include "Noware_Game/game.h"
 
 int main() 
 {
     gameTest();
-	sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
+    nw::Window::Renderer renderer("Noware");
+	
     sf::CircleShape shape(100.f);
     shape.setFillColor(sf::Color::Green);
 
-    while (window.isOpen())
+    while (renderer.GetHandle()->isOpen())
     {
         sf::Event event;
-        while (window.pollEvent(event))
+        while (renderer.GetHandle()->pollEvent(event))
         {
             if (event.type == sf::Event::Closed)
-                window.close();
+                renderer.GetHandle()->close();
         }
 
-        window.clear();
-        window.draw(shape);
-        window.display();
+        renderer.GetHandle()->clear();
+        renderer.GetHandle()->draw(shape);
+        renderer.GetHandle()->display();
     }
     
 

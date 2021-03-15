@@ -12,7 +12,7 @@ include_directories(${Noware_SOURCE_DIR}/extern/SFML/include)
 
 
 set(NOWARE_GAME_SRC 
-    game/game.cpp
+    game.cpp
 )
 
 target_sources(noware PRIVATE ${NOWARE_GAME_SRC})

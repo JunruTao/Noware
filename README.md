@@ -6,8 +6,18 @@ A small C++ game/engine "Noware" development, using SFML as foundation graphics 
 [comment]: <> (Format: Markdown format for better preview on GitHub.com)
 [comment]: <> (----------------------COMMENT END-----------------------)
 
-[Build Environment](##1.-build-environment)
-[Package](#####1.1-package)
+### Content Menu
+* [1. Build Environment](#1-build-environment)
+  * [1.1 Package](#11-package)
+  * [1.2 build instruction](#12-build-instruction)
+  * [1.3* Handy Windows custom doskey for build shortcuts](#13-handy-windows-custom-doskey-for-build-shortcuts)
+* [2. File Structure](#2-file-structure)
+  * [2.1 Master folder structure](#21-master-folder-structure)
+  * [2.2 Source files structure](#22-source-files-structure)
+* [3. Program Structure](#3-program-structure)
+  * [Diagram #01:](#diagram-01)
+
+
 
 ----------------------------------------------------------------------
 ## 1. Build Environment
@@ -37,8 +47,8 @@ Content of `cmds.bat`
 @echo off
 :: MinGW and CMake Makefile shortcuts
 doskey cmaked=cmake.exe -G "MinGW Makefiles" -DCMAKE_BUILD_TYPE=Debug ..
-doskey cmaked=cmake.exe -G "MinGW Makefiles" -DCMAKE_BUILD_TYPE=Release ..
-doskey cmaker=mingw32-make
+doskey cmaker=cmake.exe -G "MinGW Makefiles" -DCMAKE_BUILD_TYPE=Release ..
+doskey mm=mingw32-make
 doskey mmi=mingw32-make install
 ```
 |cmake debug  | cmake release | make| make install|
@@ -50,50 +60,67 @@ doskey mmi=mingw32-make install
 ## 2. File Structure
 
 ##### 2.1 Master folder structure:
-- <img src=".factory/icons/folder_12x12.png"> - Noware
-  - <img src=".factory/icons/folder_12x12.png"> - .factory
-    - <img src=".factory/icons/folder_12x12.png"> - diagrams
-    - <img src=".factory/icons/folder_12x12.png"> - icons
-  - <img src=".factory/icons/folder_12x12.png"> - extern
-    - <img src=".factory/icons/folderE_12x12.png"> - SFML
-    - <img src=".factory/icons/file_12x12.png"> - `instructions.txt`
-  - <img src=".factory/icons/folder_12x12.png"> - Noware <sup>(source files)</sup>
-    - <img src=".factory/icons/folder_n_files_12x12.png"> ...<sup>&darr;(see Source files structure)</sup>
-  - <img src=".factory/icons/cmfile_12x12.png"> - `CMakeLists.txt`
-  - <img src=".factory/icons/file_12x12.png"> - `.gitignore`
-  - <img src=".factory/icons/file_12x12.png"> - `LICENSE`
-  - <img src=".factory/icons/file_12x12.png"> - `README.md`
+- ![](.factory/ico/folder.png) - Noware
+  - ![](.factory/ico/folder.png) - .factory
+    - ![](.factory/ico/folder.png) - diagrams
+    - ![](.factory/ico/folder.png) - ico
+  - ![](.factory/ico/folder.png) - extern
+    - ![](.factory/ico/folderE.png) - SFML
+    - ![](.factory/ico/file.png) - `instructions.txt`
+  - ![](.factory/ico/folder.png) - Noware <sup>(source files)</sup>
+    - ![](.factory/ico/folder_n_files.png) ...<sup>&darr;(see Source files structure)</sup>
+  - ![](.factory/ico/cmfile.png) - `CMakeLists.txt`
+  - ![](.factory/ico/file.png) - `.gitignore`
+  - ![](.factory/ico/file.png) - `LICENSE`
+  - ![](.factory/ico/file.png) - `README.md`
 
 ##### 2.2 Source files structure:
-- <img src=".factory/icons/folderG_12x12.png"> - Noware <sup>(source files)</sup>
-  - <img src=".factory/icons/folderG_12x12.png"> - config
-    - <img src=".factory/icons/file_12x12.png"> - `config.env`
-  - <img src=".factory/icons/folderG_12x12.png"> - fonts
-    - <img src=".factory/icons/file_m_12x12.png"> ...
-  - <img src=".factory/icons/folderG_12x12.png"> - images
-    - <img src=".factory/icons/file_m_12x12.png"> ...
-  - <img src=".factory/icons/folder_12x12.png"> - include
-    - <img src=".factory/icons/folder_12x12.png"> - Noware
-      - <img src=".factory/icons/folder_12x12.png"> - engine
-      - <img src=".factory/icons/folder_12x12.png"> - graphics
-      - <img src=".factory/icons/folder_12x12.png"> - util
-    - <img src=".factory/icons/folder_12x12.png"> - Noware_Game
-      - <img src=".factory/icons/folder_12x12.png"> - game
-  - <img src=".factory/icons/folder_12x12.png"> - src
-    - <img src=".factory/icons/file_12x12.png"> - `creator.cpp` &larr; (Entry Point)
-    - <img src=".factory/icons/folder_12x12.png"> - Noware
-      - <img src=".factory/icons/folder_12x12.png"> - engine
-      - <img src=".factory/icons/folder_12x12.png"> - graphics
-      - <img src=".factory/icons/folder_12x12.png"> - util
-      - <img src=".factory/icons/cmfile_12x12.png"> - `CMakeLists.txt`
-    - <img src=".factory/icons/folder_12x12.png"> - Noware_Game
-      - <img src=".factory/icons/folder_12x12.png"> - game
-      - <img src=".factory/icons/cmfile_12x12.png"> - `CMakeLists.txt`
-  - <img src=".factory/icons/cmfile_12x12.png"> - `CMakeLists.txt`
+- ![](.factory/ico/folderG.png) - Noware <sup>(source files)</sup>
+  - ![](.factory/ico/folderG.png) - config
+    - ![](.factory/ico/file.png) - `config.env`
+  - ![](.factory/ico/folderG.png) - fonts
+    - ![](.factory/ico/file_m.png) ...
+  - ![](.factory/ico/folderG.png) - images
+    - ![](.factory/ico/file_m.png) ...
+  - ![](.factory/ico/folder.png) - include
+    - ![](.factory/ico/folder.png) - Noware
+      - ![](.factory/ico/folder.png) - engine
+      - ![](.factory/ico/folder.png) - graphics
+      - ![](.factory/ico/folder.png) - util
+    - ![](.factory/ico/folder.png) - Noware_Game
+      - ![](.factory/ico/folder.png) - game
+  - ![](.factory/ico/folder.png) - src
+    - ![](.factory/ico/file.png) - `creator.cpp` &larr; (Entry Point)
+    - ![](.factory/ico/folder.png) - Noware
+      - ![](.factory/ico/folder.png) - engine
+      - ![](.factory/ico/folder.png) - graphics
+      - ![](.factory/ico/folder.png) - util
+      - ![](.factory/ico/cmfile.png) - `CMakeLists.txt`
+    - ![](.factory/ico/folder.png) - Noware_Game
+      - ![](.factory/ico/folder.png) - game
+      - ![](.factory/ico/cmfile.png) - `CMakeLists.txt`
+  - ![](.factory/ico/cmfile.png) - `CMakeLists.txt`
 
 ----------------------------------------------------------------------
 
 ## 3. Program Structure
-##### Diagram <sup>#</sup>01:
+##### Diagram #01:
 
-<img align="center" width=500 src=".factory/diagrams/20200310_dgrm_architecture_v0001.png">
+![diagram01](.factory/diagrams/20200310_dgrm_architecture_v0001.png)
+
+
+
+
+
+
+
+
+
+----------------------------------------------------------------------
+[comment]: <> (---------------------COMMENT START----------------------)
+[comment]: <> (            End of README Markdown File                 )
+[comment]: <> (----------------------COMMENT END-----------------------)
+
+[<p align="center"> ____ &uarr; Go back to Top &uarr; ____</p>](#noware) 
+
+----------------------------------------------------------------------

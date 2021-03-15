@@ -12,9 +12,14 @@ include_directories(${Noware_SOURCE_DIR}/extern/SFML/include)
 
 
 set(NOWARE_SRC 
-    engine/engine.cpp
-    graphics/graphics.cpp
-    util/utility.cpp
+    engine.cpp
+
+    graphics.cpp
+        graphics/window.cpp
+    
+    utility.cpp
+        util/configure.cpp
+        util/system_helper.cpp
 )
 
 target_sources(noware PRIVATE ${NOWARE_SRC})

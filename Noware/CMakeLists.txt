@@ -24,6 +24,8 @@ if (CMAKE_BUILD_TYPE MATCHES Release)
     set(NOWARE_INSTALL_DIR ${Noware_SOURCE_DIR}/Noware-${NOWARE_VERSION})
 else()
     set(NOWARE_INSTALL_DIR ${Noware_SOURCE_DIR}/Noware-d-${NOWARE_VERSION})
+    # setting the debug flag by force as long as it is not release mode
+    add_definitions(-DDEBUG)
 endif()
 
 

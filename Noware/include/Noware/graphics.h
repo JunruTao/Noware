@@ -1,9 +1,10 @@
 #ifndef _GRAPHICS_H_
 #define _GRAPHICS_H_
 
-#include "Noware/util/utility.h"
+#include "Noware/utility.h"
+#include "Noware/graphics/window.h"
 
-namespace NW
+namespace nw
 {
     namespace Graphics
     {
