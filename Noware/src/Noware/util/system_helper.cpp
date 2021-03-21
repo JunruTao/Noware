@@ -31,3 +31,13 @@ void nw::Util::RuntimeError(std::string error_message)
     nw::Util::Message(error_message);
     throw std::runtime_error(error_message);
 }
+
+
+// [SYSTEM HELPER] Exit Pausing
+void nw::Util::DebugExitPause()
+{
+#ifdef DEBUG
+    std::cout<< "\n\n[Noware::Util] Press Any Key to exit...\n";
+    std::cin.ignore();
+#endif
+}

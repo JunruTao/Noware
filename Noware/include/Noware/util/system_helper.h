@@ -1,19 +1,37 @@
 #ifndef _SYSTEM_HELPER_H_
 #define _SYSTEM_HELPER_H_
 #include <string>
+#include "Noware/util/macro_field.h"
 
-// [Code Helper] Notation macros, has no specific meaning
-#define ____HERE_HAS_DEBUG_FUNCTION____
-#define ____INPUT____
 
 namespace nw
 {
     namespace Util
     {
-        extern void Message(std::string message);
-        extern void DebugMessage(std::string debug_message);
-        extern void DebugMessageP(std::string debug_message, void* address);
-        extern void RuntimeError(std::string error_message);
+        //[GLOBAL]
+        //{Message send to console, in both debug/release}
+        ///\param message string to send
+        _GLOBAL_ void Message(std::string message);
+
+        //[GLOBAL]
+        //{Message send to console in debug build}
+        ///\param debug_message string to send
+        _GLOBAL_ void DebugMessage(std::string debug_message);
+
+        //[GLOBAL]
+        //{For debugging a pointer, print address}
+        ///\param debug_message string to send
+        ///\param address use a static_cast<void*> to convert any pointer
+        _GLOBAL_ void DebugMessageP(std::string debug_message, void* address);
+
+        //[GLOBAL]
+        //{Throwing runtime error.}
+        ///\param error_message string to send
+        _GLOBAL_ void RuntimeError(std::string error_message);
+        
+        //[GLOBAL]
+        //{Debug Mode only: allow console to stay open after closing}
+        _GLOBAL_ void DebugExitPause();
     }
 }
 
