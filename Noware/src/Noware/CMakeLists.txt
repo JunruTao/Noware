@@ -13,6 +13,7 @@ include_directories(${Noware_SOURCE_DIR}/extern/SFML/include)
 
 set(NOWARE_SRC 
     engine.cpp
+        engine/main_loop.cpp
 
     graphics.cpp
         graphics/window.cpp

@@ -16,10 +16,13 @@
 namespace nw
 {
     // passing 
-    //
+    
+    //[Typedefs]
     // Warping Basic SFML types
+
     typedef sf::RenderWindow* hRenderer;
     typedef sf::Event* hEvent;
+    
     namespace Util
     {
         extern void Test();

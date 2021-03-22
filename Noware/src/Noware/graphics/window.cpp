@@ -46,13 +46,24 @@ unsigned int nw::Window::Renderer::_evalWindowStyle()
 {
     if(nw::Window::MODE_FULLSCREEN)
     {
+        ____HERE_HAS_DEBUG_FUNCTION____
         nw::Util::DebugMessage("[Window Style] = FullScreen");
         return sf::Style::Fullscreen;
     }
     else
     {
-        nw::Util::DebugMessage("[Window Style] = Default");
-        return sf::Style::Default;
+        if(nw::Window::MODE_RESIZABLE)
+        {
+            ____HERE_HAS_DEBUG_FUNCTION____
+            nw::Util::DebugMessage("[Window Style] = Default");
+            return sf::Style::Default;
+        }
+        else
+        {
+            ____HERE_HAS_DEBUG_FUNCTION____
+            nw::Util::DebugMessage("[Window Style] = Non-Resizable");
+            return sf::Style::Titlebar | sf::Style::Close;
+        }
     }
 }
 
@@ -89,6 +100,9 @@ nw::Window::Renderer::Renderer(std::string window_name)
         nw::Util::DebugMessageP(
             "- Window Renderer Registry",
             static_cast<void *>(_hrenderer));
+        nw::Util::DebugMessageP(
+            "- Noware Renderer Object Registry",
+            static_cast<void *>(this));
     }
 
     // Create viewport set into window
@@ -107,6 +121,7 @@ nw::Window::Renderer::~Renderer()
     nw::Util::DebugMessage("[nw::Window::Renderer] - Delete Window Handle");
     nw::Util::DebugMessageP("- Delete Renderer Window Handle",static_cast<void*>(_hrenderer));
     delete _hrenderer;
+    nw::Util::DebugMessageP("- Delete Noware Renderer Object Handle",static_cast<void*>(this));
 }
 
 //[Window Resize -> In Refresh Loop]
@@ -132,6 +147,17 @@ void nw::Window::Renderer::Resize(hEvent h_event)
 nw::hRenderer nw::Window::Renderer::GetHandle()
 {
     return this->_hrenderer;
+}
+
+
+
+//[Delare Master Renderer] -> nullptr
+nw::Window::Renderer* nw::Window::MasterRenderer = nullptr;
+
+//[Delare Master Register]
+void nw::Window::MasterRegister(std::string name)
+{
+    nw::Window::MasterRenderer = new nw::Window::Renderer(name);
 }
 
 

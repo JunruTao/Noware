@@ -2,5 +2,7 @@
 #define _GAME_H_
 
 #include "Noware/engine.h"
-extern void gameTest();
+
+extern std::vector<std::unique_ptr<sf::Drawable>> pool;
+
 #endif

@@ -1,5 +1,6 @@
 #ifndef _WINDOW_H_
 #define _WINDOW_H_
+#include <memory>
 #include "Noware/utility.h"
 
 namespace nw
@@ -42,6 +43,16 @@ namespace nw
             hRenderer _hrenderer;
         };
 
+        //[GOBAL VAR]
+        // The Master window
+        _GLOBAL_ Renderer* MasterRenderer;
+
+        //[GLOBAL]
+        //{Use this function to register the main window and its creation}
+        // .
+        // PLEASE CALL THIS FUNCTION IN @InitPlayground()
+        ////\param name the string name of the window title
+        _GLOBAL_ void MasterRegister(std::string name);
 
         // *-------Window Global Utility Functions------*
 
