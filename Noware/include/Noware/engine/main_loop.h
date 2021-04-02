@@ -18,7 +18,7 @@ namespace nw
         //{User should define this function}
         // in this field, user should create a Renderer and move it into the RenderPool.
         _GLOBAL_ void InitPlayground();
-        _GLOBAL_ void ProcessEvent(hEvent);
+        _GLOBAL_ void ProcessEvent();
         _GLOBAL_ void DrawCalls();
     }
 

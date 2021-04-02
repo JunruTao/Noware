@@ -11,8 +11,12 @@ void nw::GR::InitPlayground()
     nw::Window::setFullScreen(false);
     
 
+
     nw::Window::MasterRegister("First Noware Game");
 
+    nw::MapTile maptile;
+
+    //Some SF shape test here.
     sf::CircleShape cir(100.f);
     cir.setFillColor(sf::Color::Green);
     
@@ -24,13 +28,23 @@ void nw::GR::InitPlayground()
         {100.0f, 100.0f},
         {0.0f, 100.0f}
     };
+    
     sf::Transform mat(
-    1, 0.5, 0,
+    1, 0, 0,
     0, 1, 0,
     0, 0, 1);
+    mat.rotate(45.0f);
+
+    sf::Transform mat2(
+    1, 0, 0,
+    0, 1, 0,
+    0, 0, 1);
+    
+    mat2.scale(sf::Vector2f(1,0.5),sf::Vector2f(0, 0));
     for(short i=0; i<4; i++)
     {
         points[i] = mat.transformPoint(points[i]);
+        points[i] = mat2.transformPoint(points[i]);
         polygon.setPoint(i, points[i]);
     }
 
@@ -41,7 +55,7 @@ void nw::GR::InitPlayground()
     nw::PushSfmlGeo(shape);
 }
 
-void nw::GR::ProcessEvent(nw::hEvent h_event)
+void nw::GR::ProcessEvent()
 {
     //TODO:
 }

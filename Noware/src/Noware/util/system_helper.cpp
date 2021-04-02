@@ -41,3 +41,24 @@ void nw::Util::DebugExitPause()
     std::cin.ignore();
 #endif
 }
+
+void nw::Util::DebugCaller(std::string caller_name)
+{
+#ifdef DEBUG
+    std::cout<<"["<<caller_name<<"] has called"<<std::endl;
+#endif
+}
+
+void nw::Util::DebugCallerConstructor(std::string object_name)
+{
+#ifdef DEBUG
+    std::cout<<"["<<object_name<<"'s Constructor] has called"<<std::endl;
+#endif   
+}
+
+void nw::Util::DebugCallerDestructor(std::string object_name)
+{
+#ifdef DEBUG
+    std::cout<<"["<<object_name<<"'s Destructor] has called"<<std::endl;
+#endif   
+}

@@ -153,6 +153,8 @@ nw::hRenderer nw::Window::Renderer::GetHandle()
 
 //[Delare Master Renderer] -> nullptr
 nw::Window::Renderer* nw::Window::MasterRenderer = nullptr;
+//[Delare Master hEvent] -> nullptr
+nw::hEvent nw::Window::MasterhEvent = nullptr;
 
 //[Delare Master Register]
 void nw::Window::MasterRegister(std::string name)

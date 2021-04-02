@@ -32,6 +32,22 @@ namespace nw
         //[GLOBAL]
         //{Debug Mode only: allow console to stay open after closing}
         _GLOBAL_ void DebugExitPause();
+
+
+        //[GLOBAL]
+        //{Message send to console in debug build}
+        ///\param caller_name caller's name, printing `$name has called`
+        _GLOBAL_ void DebugCaller(std::string caller_name);
+
+        //[GLOBAL]
+        //{Message send to console in debug build}
+        ///\param object_name object's name
+        _GLOBAL_ void DebugCallerConstructor(std::string object_name);
+
+        //[GLOBAL]
+        //{Message send to console in debug build}
+        ///\param object_name object's name
+        _GLOBAL_ void DebugCallerDestructor(std::string object_name);
     }
 }
 

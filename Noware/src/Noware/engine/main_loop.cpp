@@ -47,17 +47,17 @@ void nw::ProgramLoop()
     while(_getRenderer()->isOpen())
     {
         // Process events
-		sf::Event event;
-        while(_getRenderer()->pollEvent(event))
+		nw::Window::MasterhEvent = new sf::Event;
+        while(_getRenderer()->pollEvent(*nw::Window::MasterhEvent))
         {
-            if(event.type == sf::Event::Closed || event.key.code == sf::Keyboard::Escape)
+            if(nw::Window::MasterhEvent->type == sf::Event::Closed || nw::Window::MasterhEvent->key.code == sf::Keyboard::Escape)
             {
                 _getRenderer()->close();
                 break;
             }
             // defined Global
-            nw::GR::ProcessEvent(&event);
-            nw::Window::MasterRenderer->Resize(&event);
+            nw::GR::ProcessEvent();
+            nw::Window::MasterRenderer->Resize(nw::Window::MasterhEvent);
         }
         // Defined Global
         _getRenderer()->clear();
@@ -69,6 +69,8 @@ void nw::ProgramLoop()
     //[FREE RESOURCE]
     // Deleting the window object here
     delete nw::Window::MasterRenderer;
+    delete nw::Window::MasterhEvent;
+    
 
     nw::Util::DebugExitPause();
 }////END OF Programe Loop

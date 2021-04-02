@@ -14,9 +14,13 @@ include_directories(${Noware_SOURCE_DIR}/extern/SFML/include)
 set(NOWARE_SRC 
     engine.cpp
         engine/main_loop.cpp
+        engine/map.cpp
+        engine/map_tile.cpp
+        engine/game_object.cpp
 
     graphics.cpp
         graphics/window.cpp
+        graphics/drawable.cpp
     
     utility.cpp
         util/configure.cpp

@@ -46,6 +46,8 @@ namespace nw
         //[GOBAL VAR]
         // The Master window
         _GLOBAL_ Renderer* MasterRenderer;
+        // The Event Handle
+        _GLOBAL_ hEvent MasterhEvent;
 
         //[GLOBAL]
         //{Use this function to register the main window and its creation}

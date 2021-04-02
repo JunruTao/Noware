@@ -3,6 +3,7 @@
 
 #include "Noware/utility.h"
 #include "Noware/graphics/window.h"
+#include "Noware/graphics/drawable.h"
 
 namespace nw
 {
