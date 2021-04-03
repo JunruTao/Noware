@@ -2,6 +2,9 @@
 #define _CONFIGURE_H_
 #include "Noware/util/macro_field.h"
 
+#define DEFAULT_FONTNAME "default"
+#define DEFAULT_FONT_FILEPATH "fonts/Nouveau_IBM.ttf"
+
 //[ Config - Global Variables ]
 namespace nw
 {

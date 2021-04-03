@@ -1,6 +1,7 @@
 #ifndef _MAIN_LOOP_
 #define _MAIN_LOOP_
 #include "Noware/graphics.h"
+#include "Noware/engine/map.h"
 
 namespace nw
 {
@@ -30,6 +31,10 @@ namespace nw
         //[GLOBAL VAR]
         // data pool stores all the custom SFML drawables
         _GLOBAL_ std::vector<std::unique_ptr<sf::Drawable>> SFML;
+
+        //[GLOBAL] Maps
+        // All the maps will be stored in here
+        _GLOBAL_ std::vector<nw::Map*> Maps;
     }
 
     //[GLOBAL]
@@ -42,6 +47,27 @@ namespace nw
     //[GLOBAL]
     //{Drawing all the temporal sfml geos. Call this function in DrawCalls()}
     _GLOBAL_ void DrawSfmlGeo();
+
+
+    // -
+    // -
+    //[GLOBAL]
+    //{insert the map into the map list}, this map will be move to the map container
+    ////\param map_ptr resource of the new map, which will be a shared resource.
+    ////\return the index of the this map loacted in the map container
+    _GLOBAL_ size_t AddMap(nw::Map*& map_ptr);
+
+    //[GLOBAL]
+    //{Drawing the last map that being added to the map list}
+    _GLOBAL_ void DrawMap();
+    
+    //[GLOBAL]
+    //{Drawing a map, requested by the index}
+    ////\param index which map you want to draw(unsigned int)
+    _GLOBAL_ void DrawMap(size_t index);
+
+
+    //[GLOBAL]
 }
 
 #endif

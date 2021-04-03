@@ -3,11 +3,11 @@
 
 nw::GameObject::GameObject()
 {
-    nw::Util::DebugCallerConstructor("GameObject");
+    //nw::Util::DebugCallerConstructor("GameObject");
 }
 
 
 nw::GameObject::~GameObject()
 {
-    nw::Util::DebugCallerDestructor("Drawable");
+    //nw::Util::DebugCallerDestructor("Drawable");
 }

@@ -3,6 +3,9 @@
 # User documents
 /.factory/__*/**
 
+# font docs
+*.ttf
+
 # excluded extern(sfml) find the instructions inside
 /extern/SFML/**
 

@@ -2,10 +2,10 @@
 
 nw::Drawable::Drawable()
 {
-    nw::Util::DebugCallerConstructor("Drawable");
+    //nw::Util::DebugCallerConstructor("Drawable");
 }
 
 nw::Drawable::~Drawable()
 {
-    nw::Util::DebugCallerDestructor("Drawable");
+    //nw::Util::DebugCallerDestructor("Drawable");
 }
