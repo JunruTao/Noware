@@ -62,6 +62,10 @@ void nw::DrawMap(size_t index)
     }
 }
 
+//[GLOBAL]
+
+
+
 // [ LOCAL ] Free the memory of the maps
 void lFreeMap()
 {

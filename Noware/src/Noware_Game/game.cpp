@@ -9,14 +9,13 @@ void nw::GR::InitPlayground()
     nw::Window::setFullScreen(false);
     
     nw::Window::MasterRegister("First Noware Game");
-    nw::Map* map = new nw::Map(10,10,nw::Maptype::Diamond);
+    nw::Map* map = new nw::Map(20, 10, 70, nw::Maptype::Diamond);
     nw::AddMap(map);
-
 }
 
 void nw::GR::ProcessEvent()
 {
-    //TODO:
+    nw::GeoPool::Maps[0]->Update();
 }
 
 void nw::GR::DrawCalls()
