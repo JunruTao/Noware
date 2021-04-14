@@ -17,39 +17,73 @@ namespace nw
     class MapTile: public Drawable, public GameObject
     {
     public:
+        
         //[Constructor]
+        // default constructor.
+        ////\param tile_size (float) the w/h of the square
+        ////\param cord (nw::Vec2i&) coordinate in integer, i.g.{2, 4} x,y
+        ////\param type (nw::Maptype) enum
         MapTile(float tile_size, nw::Vec2i &cord, nw::Maptype type=Maptype::Grid);
+        
         //[Destructor]
+        // destructor 
         ~MapTile();
 
         //[MFunc ovrd]
         void Draw() override;
+
         //[MFunc ovrd]
         void Update() override;
 
-        //[MFunc]
-        // Custom Draw, Draw tiles to a buffer.
+        //[MFunc] PUB
+        // Function:
+        /////Custom Draw, Draw tiles to a buffer.
         void Draw(sf::RenderTexture& buffer_renderer);
+
+        //[MFunc] PUB Getter 
+        /////-> Get X Coordinate
+        ////\return (int)
+        int getCordX();
         
         //[MFunc] PUB Getter 
-        // -> Get X Coordinate
-        int getCordX();
-        //[MFunc] PUB Getter 
-        // -> Get Y Coordinate
+        /////-> Get Y Coordinate
+        ////\return (int)
         int getCordY();
+        
         //[MFunc] PUB Getter 
-        // -> Get Coordinate Vector(Vec2i)
+        /////-> Get Coordinate Vector(Vec2i)
+        ////\return (nw::Vec2i)
         nw::Vec2i getCordVec();
 
-        //[Getter]
+        //[MFunc] PUB Getter 
+        /////-> Get Minimum bound
+        ////\return (sf::Vector2f) min point2D
         sf::Vector2f getBoundMin();
+
+        //[MFunc] PUB Getter 
+        /////-> Get Maxmum bound
+        ////\return (sf::Vector2f) max point2D
         sf::Vector2f getBoundMax();
 
-        //[Transform function]
-        void ViewTranslate(sf::Vector2f motion);
+
+        //[MFunc] PUB Getter
+        /////-> Get Shape data(4 sided convex shape)
+        ////\return (sf::ConvexShape)
+        sf::ConvexShape getShape() const;
+
+
+        //[MFunc] PUB Getter
+        /////-> Get local screen position(sprite unmoved)
+        ////\return (sf::Vector2f){x,y}
+        sf::Vector2f getPostion() const;
+
+        //[MFunc] PUB Setter
+        // Using translate all the shapes in this object by a vector
+        ////\param motion (sf::Vector2f) a 2D float vector
+        void Translate(sf::Vector2f motion);
     
         //[MFunc] PUB Setter
-        // -> Set the index. (for now it just a helper function for display purpose)
+        /////Set the index. (for now it just a helper function for display purpose)
         void setIndex(unsigned int index);
 
 
@@ -60,6 +94,9 @@ namespace nw
         //[Static MFunc]
         // sorting the map tiles' drawing order in diamond mode
         static bool sortDiamond(smtr t1, smtr t2);
+        
+        //[Static MFunc]
+        // sorting the map tiles' drawing order in grid mode
         static bool sortGird(smtr t1, smtr t2);
 
         void ConstructGrid();

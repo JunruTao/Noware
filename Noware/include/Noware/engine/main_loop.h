@@ -23,7 +23,10 @@ namespace nw
         _GLOBAL_ void DrawCalls();
     }
 
-
+    namespace Dbg
+    {
+        _GLOBAL_ sf::Text OverlayText;
+    }
 
 
     namespace GeoPool

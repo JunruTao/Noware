@@ -1,5 +1,6 @@
 #include "Noware/engine/map.h"
-
+#include "Noware/engine/main_loop.h"
+#include <cmath>
 
 //////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////
@@ -33,11 +34,17 @@ sf::RenderTexture nw::Map::_buffer_renderer;
 // -
 nw::Map::Map(unsigned int sizex, unsigned int sizey, float tile_size, nw::Maptype type)
     : _map_type(type),
-      _buffer_cached(false)
+      _translation(sf::Vector2f(0,0)),
+      _buffer_cached(false),
+      _tile_size(tile_size),
+      _size_x(sizex),
+      _size_y(sizey),
+      _mouselastTileIndex(-1)
 {
     ____HERE_HAS_DEBUG_FUNCTION____
     nw::Util::DebugCallerConstructor("Map");
 
+    
     // construct a tile increase in X then Y.
     for (size_t y = 0; y < sizey; ++y)
     {
@@ -45,6 +52,8 @@ nw::Map::Map(unsigned int sizex, unsigned int sizey, float tile_size, nw::Maptyp
         {
             nw::Vec2i cord = {(int)x, (int)y};
             this->_maptiles.emplace_back(std::make_shared<nw::MapTile>(tile_size, cord, type));
+
+            
         }
     }
 
@@ -54,6 +63,9 @@ nw::Map::Map(unsigned int sizex, unsigned int sizey, float tile_size, nw::Maptyp
     {
         sortDiamond();
     }
+
+    _LogHighlightShape();
+
     cacheTexture();
     centerScreen();
 }
@@ -84,15 +96,27 @@ nw::Map::~Map()
 /*                                                                              */
 /*                                                                              */
 //{------------------------------------------------------------------------------}
+//[Draw Call, unique for map object] PUB
 void nw::Map::Draw()
 {
     nw::Window::MasterRenderer->GetHandle()->draw(*_buffer_spr);
+
+    // if there's selection of the tiles.
+    if(_selectedTileIndex >=0)
+    {
+        nw::Window::MasterRenderer->GetHandle()->draw(_highlightShape);
+    }
 }
 
 
 //{------------------------------------------------------------------------------}
+//[Update Call, unique for map object] PUB
 void nw::Map::Update()
 {
+    // Variables that shouldn't be freed all the time
+    static float gridx = -1;
+    static float gridy = -1;
+
     switch (nw::Window::MasterhEvent->type)
     {
     case sf::Event::Resized:
@@ -103,8 +127,33 @@ void nw::Map::Update()
         {
             switchLayout();
             cacheTexture();
+            _buffer_spr->setPosition(_translation);
+        }
+        break;
+    case sf::Event::MouseMoved:
+        // moving a mouse, and test which tile is selected.
+        if(this->_map_type == nw::Maptype::Grid)
+        {
+            // getting the grid profile location(subtract translate and divide by grid size)
+            // then rounding the float to floor should get the natural number of the grid.
+            gridx = (-_translation.x + (float)sf::Mouse::getPosition(*nw::Window::MasterRenderer->GetHandle()).x) / _tile_size;
+            gridy = (-_translation.y + (float)sf::Mouse::getPosition(*nw::Window::MasterRenderer->GetHandle()).y) / _tile_size;
+            _selectedTileIndex = (size_t)(floorf(gridy)*_size_x + floorf(gridx));
 
-            _buffer_spr->setPosition(_traslation);
+            // if the mouse postion can be mapped into the integer grid:
+            if((gridx >= 0 && gridx < _size_x)&&(gridy >= 0 && gridy < _size_y))
+            {
+                if(_selectedTileIndex != _mouselastTileIndex)
+                {
+                    nw::Dbg::OverlayText.setString(std::to_string( _selectedTileIndex ));
+                    // todo: Engage a selection tile mechanism, selection tile will be one only.
+                    _highlightShape.setPosition(_maptiles[_selectedTileIndex]->getPostion() + _translation);
+                    _mouselastTileIndex = _selectedTileIndex;
+                }
+            }else
+            {
+                _selectedTileIndex = -1;
+            }
         }
         break;
     default:
@@ -145,13 +194,13 @@ void nw::Map::calcBound()
         max_y = std::max(cordmax.y, max_y);
     }
     
-    // From the Bound to cauculate the width and height of the map in screen space
+    // From the Bound to calculate the width and height of the map in screen space
     this->_map_texture_size = sf::Vector2f(max_x-min_x, max_y-min_y);
     
     // Moving the gird fully aligned to the top-left of the screen to render the buffer
     for (size_t i = 0; i < _maptiles.size(); ++i)
     {
-        _maptiles[i]->ViewTranslate(sf::Vector2f(-min_x, -min_y));
+        _maptiles[i]->Translate(sf::Vector2f(-min_x, -min_y));
     }
 }
 
@@ -199,9 +248,31 @@ void nw::Map::cacheTexture()
 }
 
 
+//{------------------------------------------------------------------------------}
+//[MFunc PROT]
+// Function:
+/////This is a small util herlper function that might be replaced in further dev.
+/////it centers the entire map the the 0.5-0.5 xy of the screen
+void nw::Map::centerScreen()
+{
+    if(false)
+    {
+    
+    sf::Vector2u screensize = nw::Window::MasterRenderer->GetHandle()->getSize();
 
+    this->_translation = sf::Vector2f(
+        ((float)screensize.x - _map_texture_size.x) * 0.5f,
+        ((float)screensize.y - _map_texture_size.y) * 0.5f
+    );
+    _buffer_spr->setPosition(_translation);
+    }
+}
 
 //{------------------------------------------------------------------------------}
+//[MFunc PROT]
+// Function:
+/////After the sorting in the container, the order in the container should be set into
+/////each tile's _drawing_index parameter.
 void nw::Map::buildTileIndex()
 {
     for (size_t i = 0; i < _maptiles.size(); ++i)
@@ -210,34 +281,33 @@ void nw::Map::buildTileIndex()
     }
 }
 
-
 //{------------------------------------------------------------------------------}
+//[MFunc PROT]
+// Function:
+/////Sorting the maptile container in Diamond fashion, build index as well
 void nw::Map::sortDiamond()
 {
     std::sort(_maptiles.begin(), _maptiles.end(), nw::MapTile::sortDiamond);
     buildTileIndex();
 }
 
-
 //{------------------------------------------------------------------------------}
+//[MFunc PROT]
+// Function:
+/////Sorting the maptile container in Grid fashion, build index as well
 void nw::Map::sortGrid()
 {
     std::sort(_maptiles.begin(), _maptiles.end(), nw::MapTile::sortGird);
     buildTileIndex();
 }
 
-
-
-
-
-
-
-
-
-
-
-
 //{------------------------------------------------------------------------------}
+//[MFunc PROT]
+// Function:
+/////This function allow this map to switch the mode between the layouts, now it it's
+/////more of a toggle that the layouts are Grid and diamond. it will run through all
+/////the map tiles and update the shape internally, then sorting the drawing order in
+/////the sort functions accordingly.
 void nw::Map::switchLayout()
 {
     if(_map_type == nw::Maptype::Grid)
@@ -250,6 +320,7 @@ void nw::Map::switchLayout()
         }
         sortDiamond();
         calcBound(); 
+        
         _map_type = nw::Maptype::Diamond;
     }
     else
@@ -264,19 +335,33 @@ void nw::Map::switchLayout()
         calcBound();
         _map_type = nw::Maptype::Grid;
     }
+
+    // the highlight shape should be relogged.
+    _LogHighlightShape();
 }
 
-
-
-
+//////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////
+//+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---
+//--+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+-
+//+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---
+//################################################################################
+//****************************-PROTECTED MFUNCS-**********************************
+/*                                                                              */
+/*                                                                              */
 //{------------------------------------------------------------------------------}
-void nw::Map::centerScreen()
+//[MFunc] PRIV
+//// Function:
+//////get the first shape of the map tile, and take that as _highlightShape
+void nw::Map::_LogHighlightShape()
 {
-    sf::Vector2u screensize = nw::Window::MasterRenderer->GetHandle()->getSize();
+    // here stores the first map tiles shape
+    _highlightShape = _maptiles[0]->getShape();
+    _highlightShape.setOutlineThickness(0);
+    _highlightShape.setFillColor(sf::Color(255,255,255,100));
 
-    this->_traslation = sf::Vector2f(
-        ((float)screensize.x - _map_texture_size.x) * 0.5f,
-        ((float)screensize.y - _map_texture_size.y) * 0.5f
-    );
-    _buffer_spr->setPosition(_traslation);
+    // note:
+    //// not only in the constructor, everytime the layout changing shoud
+    //// trigger this and set it back to -1;
+    _selectedTileIndex = -1;
 }

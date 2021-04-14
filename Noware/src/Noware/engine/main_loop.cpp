@@ -15,6 +15,7 @@ std::vector<std::unique_ptr<sf::Drawable>> nw::GeoPool::SFML = {};
 // Here all the maps are allocated as normal heap pointers
 std::vector<nw::Map*> nw::GeoPool::Maps = {};
 
+sf::Text nw::Dbg::OverlayText = sf::Text();
 
 //{----------------------------SFML HELPER DRAWERS--------------------------------}
 //[GLOBAL]
@@ -63,9 +64,6 @@ void nw::DrawMap(size_t index)
 }
 
 //[GLOBAL]
-
-
-
 // [ LOCAL ] Free the memory of the maps
 void lFreeMap()
 {
@@ -100,6 +98,12 @@ void nw::ProgramLoop()
         return;
     }
 
+    ____HERE_HAS_DEBUG_FUNCTION____
+    
+    nw::Dbg::OverlayText.setFont(*nw::MasterFontManager->GetFont(DEFAULT_FONTNAME));
+    nw::Dbg::OverlayText.setString("DebugDisplay");
+    nw::Dbg::OverlayText.setFillColor(sf::Color::Red);
+
     
 
     //[THE BIG WHILE LOOP]
@@ -121,6 +125,7 @@ void nw::ProgramLoop()
         // Defined Global
         _getRenderer()->clear();
         nw::GR::DrawCalls();
+        _getRenderer()->draw(nw::Dbg::OverlayText);
         _getRenderer()->display();
     }
 
