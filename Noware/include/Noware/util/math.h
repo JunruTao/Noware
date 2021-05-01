@@ -9,5 +9,7 @@
 //[DEFINE VAR]
 // Square Root of {2}
 constexpr float SqrtOf2 = 1.414212f;
+constexpr float sin45dgr = -0.70710678f;
+constexpr float cos45dgr = 0.70710678f;
 
 #endif

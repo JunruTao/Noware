@@ -77,6 +77,11 @@ namespace nw
         ////\return (sf::Vector2f){x,y}
         sf::Vector2f getPostion() const;
 
+        //[MFunc] PUB Getter
+        /////-> Get the really index
+        ////\return index(uint)
+        unsigned int getRealIndex() const;
+
         //[MFunc] PUB Setter
         // Using translate all the shapes in this object by a vector
         ////\param motion (sf::Vector2f) a 2D float vector
@@ -84,8 +89,7 @@ namespace nw
     
         //[MFunc] PUB Setter
         /////Set the index. (for now it just a helper function for display purpose)
-        void setIndex(unsigned int index);
-
+        void setDrawingIndex(unsigned int index);
 
         // a type def to simplify the parameter field
         typedef std::unique_ptr<MapTile>& umtr;

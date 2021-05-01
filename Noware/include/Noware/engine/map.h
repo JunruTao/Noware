@@ -67,7 +67,7 @@ namespace nw
         //[MFunc PROT]
         // Function:
         /////After the sorting in the container, the order in the container should be set into
-        /////each tile's _drawing_index parameter. 
+        /////each tile's _drawing_index parameter.
         void buildTileIndex();
 
         //[Static MVar]
@@ -79,6 +79,10 @@ namespace nw
         //[MVar] container
         //// stores the map tiles objects as shared pointers.
         std::vector<std::shared_ptr<nw::MapTile>> _maptiles;
+
+        //[MVar] Diamond Index Container
+        //// store the diamonds' grid index;
+        std::vector<unsigned int> _diamondsGridIndices;
 
 
         //[MFunc] PRIV
@@ -139,6 +143,11 @@ namespace nw
 
         //[MVar]
         int _selectedTileIndex;
+
+        //[MVar]
+        //// The X offset to sort in order to transform the diamond
+        //// layout properly. 
+        float _diamondXOffset;
     };
 }
 

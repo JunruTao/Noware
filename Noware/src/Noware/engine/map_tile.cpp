@@ -8,7 +8,7 @@ void nw::MapTile::updateLabel()
     //{NOTE}
     // this lable is currently for displaying the _drawing_index
     // bigger numbers shown indicates the layer is higher.
-    _label.setString(sf::String(std::to_string(_drawing_index)));
+    _label.setString(sf::String(std::to_string(_index)));
     _label.setOrigin(
         _label.getLocalBounds().width / 2,
         _label.getLocalBounds().height);
@@ -190,16 +190,24 @@ sf::Vector2f nw::MapTile::getPostion() const
     return this->_shape.getPosition();
 }
 
+//[MFunc] PUB Getter
+/////-> Get the really index
+////\return index(uint)
+unsigned int nw::MapTile::getRealIndex() const
+{
+    return _index;
+}
+
 //[Setter Functions section]
 // ---------------------------------------------------
 
 //[SETTER] PUB MFUNC
 // from the new index to overwrite the drawing index.
 ////\param index (uint)new index 
-void nw::MapTile::setIndex(unsigned int index)
+void nw::MapTile::setDrawingIndex(unsigned int index)
 {
     this->_drawing_index = index;
-    this->_label.setString(std::to_string(_drawing_index));
+    updateLabel();
 }
 
 

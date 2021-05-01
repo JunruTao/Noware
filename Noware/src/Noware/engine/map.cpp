@@ -52,8 +52,6 @@ nw::Map::Map(unsigned int sizex, unsigned int sizey, float tile_size, nw::Maptyp
         {
             nw::Vec2i cord = {(int)x, (int)y};
             this->_maptiles.emplace_back(std::make_shared<nw::MapTile>(tile_size, cord, type));
-
-            
         }
     }
 
@@ -116,6 +114,8 @@ void nw::Map::Update()
     // Variables that shouldn't be freed all the time
     static float gridx = -1;
     static float gridy = -1;
+    static float _gridx = -1;
+    static float _gridy = -1;
 
     switch (nw::Window::MasterhEvent->type)
     {
@@ -132,29 +132,60 @@ void nw::Map::Update()
         break;
     case sf::Event::MouseMoved:
         // moving a mouse, and test which tile is selected.
-        if(this->_map_type == nw::Maptype::Grid)
+
+        //[Calculation of the diamond map transfrom to grid.]
+        //1. subtract translation.
+        //2. offset with _x_offset 0 <---
+        //3. scale Y from (0,0) 2 times
+        //4. rorate from (0,0) 45 degrees;
+        //////---sin(45d) = 0.0137073546047074765840170910676‬
+        //////---cos(45d) = 0.99990604980155050801971795294044
+        // nX = x * cos45 - y * sin45;
+        // nY = y * cos45 + x * sin45;
+
+        if (this->_map_type == nw::Maptype::Grid)
         {
             // getting the grid profile location(subtract translate and divide by grid size)
             // then rounding the float to floor should get the natural number of the grid.
             gridx = (-_translation.x + (float)sf::Mouse::getPosition(*nw::Window::MasterRenderer->GetHandle()).x) / _tile_size;
             gridy = (-_translation.y + (float)sf::Mouse::getPosition(*nw::Window::MasterRenderer->GetHandle()).y) / _tile_size;
-            _selectedTileIndex = (size_t)(floorf(gridy)*_size_x + floorf(gridx));
+        }
+        else //{Diamond shape layout}
+        {
+            _gridx = (float)sf::Mouse::getPosition(*nw::Window::MasterRenderer->GetHandle()).x - _translation.x - _diamondXOffset;
+            _gridy = ( (float)sf::Mouse::getPosition(*nw::Window::MasterRenderer->GetHandle()).y - _translation.y) * 2;
+            gridx = (( _gridx * cos45dgr) - (_gridy * sin45dgr));
+            gridy = (( _gridy * cos45dgr) + (_gridx * sin45dgr));
 
-            // if the mouse postion can be mapped into the integer grid:
-            if((gridx >= 0 && gridx < _size_x)&&(gridy >= 0 && gridy < _size_y))
+            nw::Dbg::OverlayText.setPosition(gridx, gridy);
+
+            gridx /= _tile_size;
+            gridy /= _tile_size;
+        }
+
+        // when the mouse pos is in the map absolute space:
+        _selectedTileIndex = (size_t)(floorf(gridy) * _size_x + floorf(gridx));
+
+        // if the mouse postion can be mapped into the integer grid:
+        if ((gridx >= 0 && gridx < _size_x) && (gridy >= 0 && gridy < _size_y))
+        {
+            if (_selectedTileIndex != _mouselastTileIndex)
             {
-                if(_selectedTileIndex != _mouselastTileIndex)
-                {
-                    nw::Dbg::OverlayText.setString(std::to_string( _selectedTileIndex ));
-                    // todo: Engage a selection tile mechanism, selection tile will be one only.
+                nw::Dbg::OverlayText.setString(std::to_string(_selectedTileIndex));
+                if(_map_type == nw::Maptype::Grid)
                     _highlightShape.setPosition(_maptiles[_selectedTileIndex]->getPostion() + _translation);
-                    _mouselastTileIndex = _selectedTileIndex;
-                }
-            }else
-            {
-                _selectedTileIndex = -1;
+                else if(!_diamondsGridIndices.empty())
+                    _highlightShape.setPosition(_maptiles[_diamondsGridIndices[_selectedTileIndex]]->getPostion() + _translation);
+                else
+                    nw::Util::RuntimeError("[nw::Map] failed process mouse move selection");
+                _mouselastTileIndex = _selectedTileIndex;
             }
         }
+        else
+        {
+            _selectedTileIndex = -1;
+        }
+
         break;
     default:
         break;
@@ -277,9 +308,11 @@ void nw::Map::buildTileIndex()
 {
     for (size_t i = 0; i < _maptiles.size(); ++i)
     {
-        _maptiles[i]->setIndex(i);
+        _maptiles[i]->setDrawingIndex(i);
     }
 }
+
+
 
 //{------------------------------------------------------------------------------}
 //[MFunc PROT]
@@ -287,7 +320,29 @@ void nw::Map::buildTileIndex()
 /////Sorting the maptile container in Diamond fashion, build index as well
 void nw::Map::sortDiamond()
 {
+    static bool diamond_indexed = false;
+
+    //now the index of the vector is sorted.
     std::sort(_maptiles.begin(), _maptiles.end(), nw::MapTile::sortDiamond);
+
+    if (!diamond_indexed)
+    {
+        std::vector<unsigned int> ind; // this will be the diamond index
+        for (size_t i = 0; i < _maptiles.size(); ++i)
+        {
+            ind.push_back(i);
+            // now this is real index, but in diamond order.
+            _diamondsGridIndices.push_back(_maptiles[i]->getRealIndex());
+        }
+        // sort the diamond index into really index order.
+        std::sort(ind.begin(), ind.end(), [&](unsigned int A, unsigned int B) {
+            return _diamondsGridIndices[A] < _diamondsGridIndices[B];
+        });
+        _diamondsGridIndices = ind;
+
+        diamond_indexed = true;
+    }
+
     buildTileIndex();
 }
 
@@ -359,6 +414,12 @@ void nw::Map::_LogHighlightShape()
     _highlightShape = _maptiles[0]->getShape();
     _highlightShape.setOutlineThickness(0);
     _highlightShape.setFillColor(sf::Color(255,255,255,100));
+
+    if(_map_type == nw::Maptype::Diamond)
+    {
+        _diamondXOffset = _highlightShape.getPosition().x;
+
+    }
 
     // note:
     //// not only in the constructor, everytime the layout changing shoud

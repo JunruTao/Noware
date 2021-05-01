@@ -9,7 +9,7 @@ void nw::GR::InitPlayground()
     nw::Window::setFullScreen(false);
     
     nw::Window::MasterRegister("First Noware Game");
-    nw::Map* map = new nw::Map(20, 10, 70, nw::Maptype::Diamond);
+    nw::Map* map = new nw::Map(7, 7, 70, nw::Maptype::Diamond);
     nw::AddMap(map);
 }
 
